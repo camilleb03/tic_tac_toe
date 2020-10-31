@@ -10,7 +10,7 @@ class TicTacToeGame():
     def __init__(self):
         # Initialize board
         self.init_board()
-        # Set start turn to player "x"
+        # Set turn to player randomly
         self.turn = random.randint(0, 1)
         self.nb_rounds = 0
 
@@ -38,6 +38,7 @@ class TicTacToeGame():
             self.turn = 0
         else:
             self.turn = 1
+
     # Print board with x and o
     def print_board(self):
         pretty_board = copy.deepcopy(self.board)

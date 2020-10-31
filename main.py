@@ -1,5 +1,5 @@
 from tic_tac_toe.game import TicTacToeGame
-from tic_tac_toe.constants import GRID_SIZE, player
+from tic_tac_toe.constants import player
 
 import sys
 
@@ -45,24 +45,27 @@ def main():
         while(playing):
             # Take input as (row,column)
             move = parse(input())
+            # Valid input
             if move:
                 # Valiate move (not out of bounds or already filled)
                 if game.check_move(move[0],move[1]):
+                    # Place symbol
                     game.place(move[0],move[1])
+                    # Print the current state of the board
                     game.print_board()
+                    # Check if the game is now over
                     if game.check_for_win():
-                        print(player.get(game.turn), "has won !")
+                        print(player.get(game.turn), "won !")
                         playing = False
                         show_actions_menu()
-                    
                     elif game.check_for_tie():
                         print("It's a tie")
                         playing = False
                         show_actions_menu()
                 else:
-                    print("Invalid move")
+                    print("Invalid move ! Reminder: row,column")
         
-
+# Validate that it is the right format: (int,int)
 def parse(input):
     values = input.split(',', 2)
     if len(values) != 2:
