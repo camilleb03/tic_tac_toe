@@ -26,9 +26,10 @@ class TicTacToeGame():
         # Place symbol on board
         self.board[row][column] = self.turn
         # Check if it's a winner move
-        if not self.check_for_win():
-            self.change_turn()
-            self.nb_rounds += 1
+        if self.check_for_win():
+            return
+        self.change_turn()
+        self.nb_rounds += 1
 
     def init_board(self):
         self.board = [ ["_"]*(GRID_SIZE) for _ in range(GRID_SIZE)]
@@ -63,7 +64,9 @@ class TicTacToeGame():
     # Verify if someone has filled a row
     def _check_row(self):
         for row in self.board:
-            return self._check_set(set(row))
+            if self._check_set(set(row)):
+                return True
+        return False
 
     # Verify if someone has filled a diagonal
     def _check_diagonal(self):
@@ -72,7 +75,9 @@ class TicTacToeGame():
     # Verify if someone has filled column
     def _check_column(self):
         for column in range(GRID_SIZE):
-            return self._check_set(set([row[column] for row in self.board]))
+            if self._check_set(set([row[column] for row in self.board])):
+                return True
+        return False
 
     # Verify it is not empty
     def _check_set(self, set_to_check):
