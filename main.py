@@ -17,16 +17,22 @@ def main():
             print("Thanks for playing!")
             sys.exit()
 
+        # Show actions menu
         if str(action).lower() == "a":
             show_actions_menu()
             continue
 
+        # Show help menu
         if str(action).lower() == "h":
             show_help_menu()
             continue
+
+        # Start a game
         if str(action).lower()== "p":
             game = TicTacToeGame()
             playing = True
+            game.print_board()
+        # Not a valid input
         else:
             show_wrong_input()
 
@@ -37,22 +43,24 @@ def main():
         [(3,1),(3,2),(3,3)]
         """
         while(playing):
-            game.print_board()
             # Take input as (row,column)
             move = parse(input())
             if move:
-                # Valid move
+                # Valiate move (not out of bounds or already filled)
                 if game.check_move(move[0],move[1]):
                     game.place(move[0],move[1])
-                    if game.winner():
+                    game.print_board()
+                    if game.check_for_win():
                         print(player.get(game.turn), "has won !")
+                        playing = False
+                        show_actions_menu()
+                    
+                    elif game.check_for_tie():
+                        print("It's a tie")
                         playing = False
                         show_actions_menu()
                 else:
                     print("Invalid move")
-            else:
-                print("Invalid input")
-                continue
         
 
 def parse(input):
