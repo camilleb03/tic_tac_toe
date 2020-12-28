@@ -4,12 +4,12 @@ import random
 
 class TicTacToeGame():
     """
-    TicTacToe class
+    Represents a tic tac toe game
     """
 
     def __init__(self):
         # Initialize board
-        self.init_board()
+        self.__generate_board()
         # Set turn to player randomly
         self.turn = random.randint(0, 1)
         self.nb_rounds = 0
@@ -27,7 +27,7 @@ class TicTacToeGame():
         self.board[row][column] = self.turn
         self.nb_rounds += 1
 
-    def init_board(self):
+    def __generate_board(self):
         self.board = [ ["_"]*(GRID_SIZE) for _ in range(GRID_SIZE)]
 
     def change_turn(self):
@@ -51,32 +51,32 @@ class TicTacToeGame():
 
     # Determine if someone has won
     def check_for_win(self):
-        return self._check_row() or self._check_diagonal() or self._check_column()
+        return self.__check_row() or self.__check_diagonal() or self.__check_column()
 
     # The board should be filled after 9 rounds, it's a tie
     def check_for_tie(self):
         return self.nb_rounds == 9
 
     # Verify if someone has filled a row
-    def _check_row(self):
+    def __check_row(self):
         for row in self.board:
-            if self._check_set(set(row)):
+            if self.__check_set(set(row)):
                 return True
         return False
 
     # Verify if someone has filled a diagonal
-    def _check_diagonal(self):
-        return self._check_set(set([r[i] for i, r in enumerate(self.board)])) or self._check_set(set([r[-i-1] for i, r in enumerate(self.board)]))
+    def __check_diagonal(self):
+        return self.__check_set(set([r[i] for i, r in enumerate(self.board)])) or self.__check_set(set([r[-i-1] for i, r in enumerate(self.board)]))
 
     # Verify if someone has filled column
-    def _check_column(self):
+    def __check_column(self):
         for column in range(GRID_SIZE):
-            if self._check_set(set([row[column] for row in self.board])):
+            if self.__check_set(set([row[column] for row in self.board])):
                 return True
         return False
 
     # Verify it is not empty
-    def _check_set(self, set_to_check):
+    def __check_set(self, set_to_check):
         if len(set_to_check) <= 1:
             if set_to_check.pop() != "_":
                 return True
