@@ -32,6 +32,7 @@ def main():
             game = TicTacToeGame()
             playing = True
             game.print_board()
+            game.print_current_turn()
         # Not a valid input
         else:
             show_wrong_input()
@@ -44,7 +45,7 @@ def main():
         """
         while(playing):
             # Take input as (row,column)
-            move = parse(input())
+            move = parse(input("Enter <row>,<column> : "))
             # Valid input
             if move:
                 # Valiate move (not out of bounds or already filled)
@@ -62,8 +63,13 @@ def main():
                         print("It's a tie")
                         playing = False
                         show_actions_menu()
+                    # Else continue plaing
+                    else:
+                        game.change_turn()
+                        game.print_current_turn()
+
                 else:
-                    print("Invalid move ! Reminder: row,column")
+                    print("Invalid move !")
         
 # Validate that it is the right format: (int,int)
 def parse(input):

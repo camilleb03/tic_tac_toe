@@ -25,10 +25,6 @@ class TicTacToeGame():
     def place(self, row, column):
         # Place symbol on board
         self.board[row][column] = self.turn
-        # Check if it's a winner move
-        if self.check_for_win():
-            return
-        self.change_turn()
         self.nb_rounds += 1
 
     def init_board(self):
@@ -48,14 +44,14 @@ class TicTacToeGame():
                 pretty_board[row][column] = player.get(pretty_board[row][column], " ")
         for row in pretty_board:
             print(row)
+    
+    def print_current_turn(self):
         # Tell which turn is it
         print("It's", player.get(self.turn), "turn !")
 
     # Determine if someone has won
     def check_for_win(self):
-        if self._check_row() or self._check_diagonal() or self._check_column():
-            return self.turn
-        return None
+        return self._check_row() or self._check_diagonal() or self._check_column()
 
     # The board should be filled after 9 rounds, it's a tie
     def check_for_tie(self):
